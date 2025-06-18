@@ -1,0 +1,13 @@
+[Unit]
+Description=Setup Git and Pip
+After=network.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/root/playtron-test-jig-software
+ExecStartPre=/bin/sh -c 'timeout 30 sh -c "until ping -c1 baidu.com; do sleep 1; done;"'
+ExecStart=/bin/bash /root/playtron-test-jig-software/update_jig_and_env.sh
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

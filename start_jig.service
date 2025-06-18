@@ -1,0 +1,14 @@
+[Unit]
+Description=Python Script Runner
+After=network.target
+After=update_jig_and_env.service
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /root/playtron-test-jig-software/start_jig.sh
+WorkingDirectory=/root/playtron-test-jig-software
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
