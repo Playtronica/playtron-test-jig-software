@@ -47,7 +47,6 @@ def mount_usb_drive(drive_name):
 
 
 def is_device_connected():
-    unmount_usb_drive()
     lsblk_output = subprocess.check_output(['lsblk', '-o', 'NAME,TYPE,MOUNTPOINT'], text=True)
 
     for line in lsblk_output.splitlines()[1:]:
