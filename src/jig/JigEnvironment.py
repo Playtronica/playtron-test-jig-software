@@ -71,7 +71,7 @@ class JigEnvironment:
         finally:
             # При завершении программы включаем USB 1
             logger.info("USB port 1: ON")
-            self.pins.usb_power_set(0, True)  # Включаем USB 1
+            self.pins.usb_power_set(1, False)  # Включаем USB 1
 
     def __main_cycle(self):
         if not self.__is_pin_status_changed():
@@ -164,7 +164,7 @@ class JigEnvironment:
             self.screen.set_color(RgbColorsEnum.PURPLE)
 
             # self.__boot_device()
-            self.pins.usb_power_set(1, False)
+            self.pins.usb_power_set(1, True)
 
             if (res := load_firmware_to_device()) is not None or self.stop_event:
                 logger.warn(f"Load firmware test is failed: {res}")
