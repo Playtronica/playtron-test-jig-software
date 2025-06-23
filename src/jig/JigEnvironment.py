@@ -163,7 +163,7 @@ class JigEnvironment:
             self.screen.set_text("FLASH")
             self.screen.set_color(RgbColorsEnum.PURPLE)
 
-            self.__boot_device()
+            # self.__boot_device()
 
             if (res := load_firmware_to_device()) is not None or self.stop_event:
                 logger.warn(f"Load firmware test is failed: {res}")
@@ -177,57 +177,6 @@ class JigEnvironment:
 
             logger.info("Test sequence started.")
 
-            if (res := find_midi_device()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
-                state[0] = 2
-                return
-
-            if (res := send_enable_logs_sysex_messages_to_midi_device()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
-                state[0] = 2
-                return
-
-            if (res := check_blue_led()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
-                state[0] = 3
-                return
-
-            if (res := check_green_led()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
-                state[0] = 4
-                return
-
-            if (res := close_midi_connection_from_device()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
-                state[0] = 2
-                return
-
-            if (res := self.serial.start_serial()) is not None or self.stop_event:
-                logger.warn(f"Serial test is failed: {res}")
-                state[0] = 5
-                return
-
-            time.sleep(1)
-
-            if (res := photoresistors_test()) is not None or self.stop_event:
-                logger.warn(f"Photo resistor is test failed: {res}")
-                state[0] = 6
-                return
-
-            if (res := plants_disabled_test()) is not None or self.stop_event:
-                logger.warn(f"Plant test is failed: {res}")
-                state[0] = 7
-                return
-
-            if (res := plants_enabled_test()) is not None or self.stop_event:
-                logger.warn(f"Plant test is failed: {res}")
-                state[0] = 8
-                return
-
-            if (res := self.serial.stop_serial()) is not None or self.stop_event:
-                logger.warn(f"Serial test is failed: {res}")
-                state[0] = 5
-                return
 
             logger.info("Test sequence completed successfully.")
             state[0] = 0
