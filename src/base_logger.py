@@ -2,7 +2,7 @@ import logging
 import time
 from variables import LOGGER_PATH
 
-base_logger = logging.getLogger("biotron_test_jig")
+base_logger = logging.getLogger("playtron_test_jig")
 
 base_logger.setLevel(logging.INFO)
 
