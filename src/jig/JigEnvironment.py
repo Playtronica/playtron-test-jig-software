@@ -163,7 +163,7 @@ class JigEnvironment:
             self.screen.set_text("FLASH")
             self.screen.set_color(RgbColorsEnum.PURPLE)
 
-            # self.__boot_device()
+            self.__boot_device()
             self.pins.usb_power_set(1, True)
 
             if (res := load_firmware_to_device()) is not None or self.stop_event:
