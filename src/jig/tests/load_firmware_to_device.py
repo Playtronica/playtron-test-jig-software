@@ -40,7 +40,7 @@ def get_firmware_file():
 def mount_usb_drive(drive_name):
     os.makedirs(variables.MOUNT_POINT, exist_ok=True)
     try:
-        subprocess.run(['mount', f'/dev/{drive_name}', variables.MOUNT_POINT], check=True)
+        # subprocess.run(['mount', f'/dev/{drive_name}', variables.MOUNT_POINT], check=True)
         logger.info(f"Mounted /dev/{drive_name} at {variables.MOUNT_POINT}")
     except subprocess.CalledProcessError as e:
         logger.warn(f"Failed to mount /dev/{drive_name}: {e}")
