@@ -164,7 +164,7 @@ class JigEnvironment:
             self.screen.set_color(RgbColorsEnum.PURPLE)
 
             # self.__boot_device()
-            self.pins.usb_power_set(1, True)
+            self.pins.usb_power_set(1, False)
 
             if (res := load_firmware_to_device()) is not None or self.stop_event:
                 logger.warn(f"Load firmware test is failed: {res}")
