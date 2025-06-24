@@ -9,7 +9,7 @@ logger = get_logger_for_file(__name__)
 biotron_midi_output = None
 
 sysex_test_mode = mido.Message.from_bytes([240, 11, 20, 13, 0, 247])
-sysex_enable_logs = mido.Message.from_bytes([240, 11, 20, 13, 3, 247])
+sysex_enable_logs = mido.Message.from_bytes([240, 11, 20, 13, 2, 247])
 
 def find_midi_device():
     try:
