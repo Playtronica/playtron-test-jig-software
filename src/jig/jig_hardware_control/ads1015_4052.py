@@ -37,21 +37,21 @@ class MultiplexerADCReader:
             raise ValueError("Channel must be between 0 and 3.")
 
         # Set S0, S1 based on the channel number
-        logger.info("Start channel set")
+        logger.debug("Start channel set")
         for i in range(len(self.channel_controller_gpio)):
             self.pin_controller.gpio_write_pin(self.channel_controller_gpio[i], (channel >> i) & 1)
-            logger.info((channel >> i) & 1)
-        logger.info("End channel set")
+            logger.debug((channel >> i) & 1)
+        logger.debug("End channel set")
 
     def _set_multiplexer(self, multiplexer):
         if not (multiplexer is None or 0 <= multiplexer <= 3):
             raise ValueError("Multiplexer must be between 0 and 3.")
 
-        logger.info("Start multiplexer set")
+        logger.debug("Start multiplexer set")
         for i in range(len(self.multiplexer_gpio)):
             self.pin_controller.gpio_write_pin(self.multiplexer_gpio[i], 1 if i != multiplexer else 0)
-            logger.info(1 if i != multiplexer else 0)
-        logger.info("End multiplexer set")
+            logger.debug(1 if i != multiplexer else 0)
+        logger.debug("End multiplexer set")
 
     def read_channel(self, multiplexer, channel):
         """Read an analog value from a specific channel of a multiplexer.
@@ -70,6 +70,7 @@ class MultiplexerADCReader:
 
         # Read from ADC channel 0
         value = self.adc.read_single_channel(0)
+        time.sleep(1)
 
         # Disable both multiplexers after reading
         self._set_multiplexer(None)
