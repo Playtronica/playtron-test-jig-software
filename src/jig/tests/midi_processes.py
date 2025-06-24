@@ -20,8 +20,8 @@ def find_midi_device():
 
         print(mido.get_output_names())
         for output_device in mido.get_output_names():
-            if "Biotron" in output_device:
-                logger.info("Biotron was found")
+            if "Playtron" in output_device:
+                logger.info("Playtron was found")
                 biotron_midi_output = mido.open_output(output_device)
                 return
         return "Device Not Found"
