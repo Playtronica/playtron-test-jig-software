@@ -67,13 +67,15 @@ class MultiplexerADCReader:
 
         # Set the channel on the multiplexer
         self._set_channel(channel)
+        time.sleep(0.1)
 
         # Read from ADC channel 0
         value = self.adc.read_single_channel(0)
-        time.sleep(1)
+        time.sleep(0.1)
 
         # Disable both multiplexers after reading
         self._set_multiplexer(None)
+        time.sleep(0.1)
 
         return value
 

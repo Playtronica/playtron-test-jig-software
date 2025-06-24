@@ -10,11 +10,11 @@ from jig.jig_hardware_control.rgb_led import RgbColorsEnum
 
 from jig.tests.load_firmware_to_device import load_firmware_to_device
 from jig.tests.midi_processes import find_midi_device, close_midi_connection_from_device, \
-    send_enable_logs_sysex_messages_to_midi_device
+    send_enable_logs_sysex_messages_to_midi_device, send_test_sysex_messages_to_midi_device
 from jig.tests.photoresistors_test import photoresistors_test
 from jig.tests.plants_check import plants_disabled_test, plants_enabled_test
 from jig.tests.serial_tests import SerialTests
-from jig.tests.led_tests import check_blue_led, check_green_led
+from jig.tests.led_tests import check_blue_led, check_green_led, led_tests
 from jig.tests.test_pads import test_pads_and_leds
 
 logger = get_logger_for_file(__name__)
@@ -176,7 +176,30 @@ class JigEnvironment:
 
             self.screen.set_text("TESTING")
 
-            test_pads_and_leds()
+            if (res := find_midi_device()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 2
+                return
+
+            if (res := send_enable_logs_sysex_messages_to_midi_device()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 2
+                return
+
+            if (res := send_test_sysex_messages_to_midi_device()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 2
+                return
+
+            if (res := close_midi_connection_from_device()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 2
+                return
+
+            if (res := led_tests()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 3
+                return
 
             self.screen.set_color(RgbColorsEnum.PURPLE)
 

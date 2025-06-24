@@ -8,8 +8,7 @@ logger = get_logger_for_file(__name__)
 
 biotron_midi_output = None
 
-sysex_test_green_mode = mido.Message.from_bytes([240, 11, 20, 13, 0, 247])
-sysex_test_blue_mode = mido.Message.from_bytes([240, 11, 20, 13, 1, 247])
+sysex_test_mode = mido.Message.from_bytes([240, 11, 20, 13, 0, 247])
 sysex_enable_logs = mido.Message.from_bytes([240, 11, 20, 13, 3, 247])
 
 def find_midi_device():
@@ -58,12 +57,8 @@ def send_sysex_messages_to_midi_device(sysex_message):
         return "Failed to send debug sys ex"
 
 
-def send_test_green_sysex_messages_to_midi_device():
-    return send_sysex_messages_to_midi_device(sysex_test_green_mode)
-
-
-def send_test_blue_sysex_messages_to_midi_device():
-    return send_sysex_messages_to_midi_device(sysex_test_blue_mode)
+def send_test_sysex_messages_to_midi_device():
+    return send_sysex_messages_to_midi_device(sysex_test_mode)
 
 
 def send_enable_logs_sysex_messages_to_midi_device():
