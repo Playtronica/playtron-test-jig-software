@@ -1,9 +1,11 @@
 import logging
 import time
 
+from base_logger import get_logger_for_file
 from .pin_controller import PinController
 from .ads1015 import ADS1015
 
+logger = get_logger_for_file(__name__)
 
 class MultiplexerADCReader:
     _instance = None
@@ -35,21 +37,21 @@ class MultiplexerADCReader:
             raise ValueError("Channel must be between 0 and 3.")
 
         # Set S0, S1 based on the channel number
-        logging.info("Start channel set")
+        logger.info("Start channel set")
         for i in range(len(self.channel_controller_gpio)):
             self.pin_controller.gpio_write_pin(self.channel_controller_gpio[i], (channel >> i) & 1)
-            logging.info((channel >> i) & 1)
-        logging.info("End channel set")
+            logger.info((channel >> i) & 1)
+        logger.info("End channel set")
 
     def _set_multiplexer(self, multiplexer):
         if not (multiplexer is None or 0 <= multiplexer <= 3):
             raise ValueError("Multiplexer must be between 0 and 3.")
 
-        logging.info("Start multiplexer set")
+        logger.info("Start multiplexer set")
         for i in range(len(self.multiplexer_gpio)):
             self.pin_controller.gpio_write_pin(self.multiplexer_gpio[i], 1 if i != multiplexer else 0)
-            logging.info(1 if i != multiplexer else 0)
-        logging.info("End multiplexer set")
+            logger.info(1 if i != multiplexer else 0)
+        logger.info("End multiplexer set")
 
     def read_channel(self, multiplexer, channel):
         """Read an analog value from a specific channel of a multiplexer.
@@ -61,9 +63,6 @@ class MultiplexerADCReader:
         Returns:
             float: The analog value in volts.
         """
-        if multiplexer not in [0, 1]:
-            raise ValueError("Multiplexer must be 1 or 2.")
-
         self._set_multiplexer(multiplexer)
 
         # Set the channel on the multiplexer
