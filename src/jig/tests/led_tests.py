@@ -9,8 +9,6 @@ logger = get_logger_for_file(__name__)
 adc_read = MultiplexerADCReader()
 
 
-
-
 def led_tests():
     for multiplexer_num in range(4):
         for multiplexer_channel_num in range(4):

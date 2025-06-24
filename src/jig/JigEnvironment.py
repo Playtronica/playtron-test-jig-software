@@ -40,7 +40,7 @@ class JigEnvironment:
         self.last_pin_state = self.pins.gpio_read_pin(0)  # Начальное состояние пина
 
         # При старте программы выключаем USB 1
-        # self.pins.usb_power_set(1, False)
+        self.pins.usb_power_set(1, False)
         self.pins.relay_set(2, 0)  # TODO check gpio boots
         self.pins.relay_set(1, 0)
 
@@ -71,7 +71,7 @@ class JigEnvironment:
         finally:
             # При завершении программы включаем USB 1
             logger.info("USB port 1: ON")
-            # self.pins.usb_power_set(1, False)  # Включаем USB 1
+            self.pins.usb_power_set(1, False)  # Включаем USB 1
 
     def __main_cycle(self):
         if not self.__is_pin_status_changed():
@@ -114,7 +114,7 @@ class JigEnvironment:
         close_midi_connection_from_device()
         self.serial.stop_serial()
 
-        # self.pins.usb_power_set(1, False)
+        self.pins.usb_power_set(1, False)
 
         if result != 0:
             logger.warn(f"Test sequence finished with error code: {self.error_code}")
@@ -197,7 +197,7 @@ class JigEnvironment:
                 return
 
             if (res := led_tests()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
+                logger.warn(f"Led test is failed: {res}")
                 state[0] = 3
                 return
 
@@ -207,7 +207,7 @@ class JigEnvironment:
                 return
 
             if (res := pads_test()) is not None or self.stop_event:
-                logger.warn(f"MIDI Test is failed: {res}")
+                logger.warn(f"Pad test is failed: {res}")
                 state[0] = 5
                 return
 
