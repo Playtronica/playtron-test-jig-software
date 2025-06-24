@@ -16,6 +16,8 @@ def led_tests():
         for multiplexer_channel_num in range(4):
             adc_val = adc_read.read_channel(multiplexer_num, multiplexer_channel_num)
             logger.info(f"Value of multiplexer {multiplexer_num} {multiplexer_channel_num}: {adc_val}")
+            if adc_val >= 3:
+                return -1
 
     return
 

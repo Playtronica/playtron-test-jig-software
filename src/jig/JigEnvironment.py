@@ -11,6 +11,7 @@ from jig.jig_hardware_control.rgb_led import RgbColorsEnum
 from jig.tests.load_firmware_to_device import load_firmware_to_device
 from jig.tests.midi_processes import find_midi_device, close_midi_connection_from_device, \
     send_enable_logs_sysex_messages_to_midi_device, send_test_sysex_messages_to_midi_device
+from jig.tests.pads_test import pads_test
 
 from jig.tests.serial_tests import SerialTests
 from jig.tests.led_tests import led_tests
@@ -198,6 +199,21 @@ class JigEnvironment:
             if (res := led_tests()) is not None or self.stop_event:
                 logger.warn(f"MIDI Test is failed: {res}")
                 state[0] = 3
+                return
+
+            if (res := self.serial.start_serial()) is not None or self.stop_event:
+                logger.warn(f"Serial test is failed: {res}")
+                state[0] = 4
+                return
+
+            if (res := pads_test()) is not None or self.stop_event:
+                logger.warn(f"MIDI Test is failed: {res}")
+                state[0] = 5
+                return
+
+            if (res := self.serial.stop_serial()) is not None or self.stop_event:
+                logger.warn(f"Serial test is failed: {res}")
+                state[0] = 4
                 return
 
             self.screen.set_color(RgbColorsEnum.PURPLE)
