@@ -15,7 +15,7 @@ from jig.tests.photoresistors_test import photoresistors_test
 from jig.tests.plants_check import plants_disabled_test, plants_enabled_test
 from jig.tests.serial_tests import SerialTests
 from jig.tests.led_tests import check_blue_led, check_green_led
-
+from jig.tests.test_pads import test_pads_and_leds
 
 logger = get_logger_for_file(__name__)
 
@@ -174,6 +174,9 @@ class JigEnvironment:
             time.sleep(5)
 
             self.screen.set_text("TESTING")
+
+            test_pads_and_leds()
+
             self.screen.set_color(RgbColorsEnum.PURPLE)
 
             logger.info("Test sequence started.")
