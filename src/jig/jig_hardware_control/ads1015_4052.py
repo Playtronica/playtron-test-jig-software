@@ -1,3 +1,4 @@
+import logging
 import time
 
 from .pin_controller import PinController
@@ -34,16 +35,21 @@ class MultiplexerADCReader:
             raise ValueError("Channel must be between 0 and 3.")
 
         # Set S0, S1 based on the channel number
+        logging.info("Start channel set")
         for i in range(len(self.channel_controller_gpio)):
             self.pin_controller.gpio_write_pin(self.channel_controller_gpio[i], (channel >> i) & 1)
+            logging.info((channel >> i) & 1)
+        logging.info("End channel set")
 
     def _set_multiplexer(self, multiplexer):
         if not (multiplexer is None or 0 <= multiplexer <= 3):
             raise ValueError("Multiplexer must be between 0 and 3.")
 
+        logging.info("Start multiplexer set")
         for i in range(len(self.multiplexer_gpio)):
             self.pin_controller.gpio_write_pin(self.multiplexer_gpio[i], 1 if i != multiplexer else 0)
-
+            logging.info(1 if i != multiplexer else 0)
+        logging.info("End multiplexer set")
 
     def read_channel(self, multiplexer, channel):
         """Read an analog value from a specific channel of a multiplexer.
