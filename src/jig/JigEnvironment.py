@@ -11,11 +11,10 @@ from jig.jig_hardware_control.rgb_led import RgbColorsEnum
 from jig.tests.load_firmware_to_device import load_firmware_to_device
 from jig.tests.midi_processes import find_midi_device, close_midi_connection_from_device, \
     send_enable_logs_sysex_messages_to_midi_device, send_test_sysex_messages_to_midi_device
-from jig.tests.photoresistors_test import photoresistors_test
-from jig.tests.plants_check import plants_disabled_test, plants_enabled_test
+
 from jig.tests.serial_tests import SerialTests
-from jig.tests.led_tests import check_blue_led, check_green_led, led_tests
-from jig.tests.test_pads import test_pads_and_leds
+from jig.tests.led_tests import led_tests
+
 
 logger = get_logger_for_file(__name__)
 
