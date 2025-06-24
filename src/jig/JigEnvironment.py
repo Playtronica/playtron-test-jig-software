@@ -171,7 +171,8 @@ class JigEnvironment:
                 state[0] = 1
                 return
 
-            time.sleep(5)
+            self.screen.set_text(f"AWAIT ANIM")
+            time.sleep(10)
 
             self.screen.set_text("TESTING")
 
