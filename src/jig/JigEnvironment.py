@@ -220,7 +220,6 @@ class JigEnvironment:
 
             logger.info("Test sequence started.")
 
-
             logger.info("Test sequence completed successfully.")
             state[0] = 0
             return
