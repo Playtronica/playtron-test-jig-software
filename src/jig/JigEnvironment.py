@@ -172,7 +172,7 @@ class JigEnvironment:
                 return
 
             self.screen.set_text(f"AWAIT BOOTING")
-            time.sleep(6)
+            time.sleep(10)
 
             self.screen.set_text("TESTING")
 
