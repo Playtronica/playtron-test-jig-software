@@ -21,7 +21,7 @@ sudo cp /root/${REPO_NAME}/start_jig.service /etc/systemd/system
 sudo cp /root/${REPO_NAME}/update_jig_and_env.service /etc/systemd/system
 
 sudo systemctl daemon-reload
-sudo raspi-config nonint do_i2c
+sudo raspi-config nonint do_i2c 0
 
 sudo systemctl enable update_jig_and_env.service
 sudo systemctl start update_jig_and_env.service
