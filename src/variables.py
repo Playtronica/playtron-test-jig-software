@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-JIG_FIRMWARE_VERSION = 'A02'
+JIG_FIRMWARE_VERSION = 'A01'
 DEVICE_FIRMWARE_VERSION = "0.00.00"
 
 
