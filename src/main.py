@@ -52,12 +52,12 @@ def initial_part():
     custom_patch = patch.zfill(2) if len(patch) < 2 else patch[-2:]
 
     custom_version = f"{custom_major}.{custom_minor}.{custom_patch}"
-    variables.BIOTRON_FIRMWARE_VERSION = custom_version
+    variables.DEVICE_FIRMWARE_VERSION = custom_version
 
 
 if __name__ == '__main__':
     initial_part()
-    print(variables.BIOTRON_FIRMWARE_VERSION)
+    print(variables.DEVICE_FIRMWARE_VERSION)
 
     jig = JigEnvironment()
     jig.init_jig_main_cycle()

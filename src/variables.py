@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 
 JIG_FIRMWARE_VERSION = 'A02'
-PLAYTRON_FIRMWARE_VERSION = "0.00.00"
+DEVICE_FIRMWARE_VERSION = "0.00.00"
 
 
 ROOT_PATH = Path(__file__).parent.parent
